@@ -1,0 +1,3 @@
+SELECT DeveloperName,TableEnumOrId
+FROM CustomField
+WHERE DeveloperName like '%_del'

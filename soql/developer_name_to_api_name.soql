@@ -1,0 +1,3 @@
+SELECT Id,DeveloperName,QualifiedApiName
+FROM EntityDefinition
+WHERE DeveloperName = '#'
