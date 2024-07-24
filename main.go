@@ -205,7 +205,7 @@ func processDeveloperNames(devNameCSV, developerName, tableEnumOrId, org string)
 			defer wg.Done()
 
 			log.Printf("[DEBUG] Processing developer name: DeveloperName=%s, API Name=%s", developerName, apiData[1])
-			apiNameCSV, err := queryFieldData(org, "soql/developer_name_to_api_name.soql", apiData[1], true)
+			apiNameCSV, err := queryFieldData(org, "soql/developer_name_to_api_name.soql", apiData[1], false)
 			if err != nil {
 				log.Fatal(err)
 			}
