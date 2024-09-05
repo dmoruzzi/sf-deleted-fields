@@ -292,10 +292,10 @@ func queryCount(cmdArgs []string) (int, error) {
 }
 
 func skipFirstLineIfNeeded(output []byte) []byte {
-	if strings.Contains(string(output), "»") {
-		index := strings.Index(string(output), "\n")
-		if index != -1 {
-			return []byte(string(output)[index+1:])
+	outputStr := string(output)
+	if strings.Contains(outputStr, "»") || strings.Contains(outputStr, "update available") {
+		if index := strings.Index(outputStr, "\n"); index != -1 {
+			return []byte(outputStr[index+1:])
 		}
 	}
 	return output
