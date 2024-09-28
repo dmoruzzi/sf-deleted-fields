@@ -235,6 +235,12 @@ func processApiNames(apiNameCSV, developerName, tableEnumOrId, apiName, org stri
 			defer wg.Done()
 
 			log.Printf("[DEBUG] Processing API name: QualifiedApiName=%s", apiData[2])
+
+			if skipSelectCountLineIfNeeded(apiData[2]) {
+				log.Printf("[INFO] Skipping select count line: %s", apiData[2])
+				return
+			}
+
 			query := fmt.Sprintf("SELECT Count() FROM %s", apiData[2])
 			cmdArgs := []string{"data", "query", "-q", query, "-o", org, "-r", "json"}
 
@@ -262,6 +268,18 @@ func processApiNames(apiNameCSV, developerName, tableEnumOrId, apiName, org stri
 	}
 
 	wg.Wait()
+}
+
+func skipSelectCountLineIfNeeded(apiName string) bool {
+	if apiName == "" {
+		return true
+	}
+
+	if strings.HasSuffix(apiName, "__e") {
+		return true
+	}
+
+	return false
 }
 
 func queryCount(cmdArgs []string) (int, error) {
